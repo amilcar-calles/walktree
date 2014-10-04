@@ -1,1 +1,1 @@
-exports.walktree = require("./lib/walktree")
+exports = require("./lib/walktree");
