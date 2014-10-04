@@ -17,34 +17,35 @@ A easy to use module to convert recursive directory listing into an array or jso
 ## Functions
 
 ```js
-    array.sync(): Synchronously fetch all files in string array format
-     output: 
-        ['file1.txt', 'file2.txt', 'picture1.jpg']
-    json.sync(): Synchronously fetch all files in string array format
-     output:
-         [
-            {
-                parent: './',
-                name: 'file1.txt'
-                stats: [fsObject stats]
-            },
-            {
-                parent: './',
-                name: 'file2.txt'
-                stats: [fsObject stats]
-            },
-            {
-                parent: './',
-                name: 'picture1.txt'
-                stats: [fsObject stats]
-            },
-        ]
+    walktree.array.sync(): Synchronously fetch all files in string array format
+        output: 
+            ['file1.txt', 'file2.txt', 'picture1.jpg']
+        
+    walktree.json.sync(): Synchronously fetch all files in string array format
+        output:
+            [
+                {
+                    parent: './',
+                    name: 'file1.txt'
+                    stats: [fsObject stats]
+                },
+                {
+                    parent: './',
+                    name: 'file2.txt'
+                    stats: [fsObject stats]
+                },
+                {
+                    parent: './',
+                    name: 'picture1.txt'
+                    stats: [fsObject stats]
+                },
+            ]
 ```
 
 ## Options
 
 ```js
-  walktree([{[directory], [filter], [junk]}])
+  walktree.array.sync([{[directory: string], [filter: string | RegExp], [junk: boolean]}])
 ```
 A json options is not required, but when no parameter is passed, all files in the current
 folder will be listed recursively.
