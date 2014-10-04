@@ -2,14 +2,14 @@
   "name": "walktree",
   "description": "Converts recursive directory listing to an array or json object.",
   "main": ".lib/walktree",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "semantic-versioning": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/amilcar-calles/walktree.git"
   },
   "author": "Amilcar Calles <amilcar@topdiez.com.mx>",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "async": "~0.9.x",
     "junk": "~1.0.x",
