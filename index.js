@@ -1,2 +1,1 @@
-var walktree = require("./lib/walktree")
-exports.walktree = walktree
+exports.walktree = require("./lib/walktree")

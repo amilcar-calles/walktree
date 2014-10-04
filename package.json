@@ -1,19 +1,35 @@
 {
-    "name": "walktree",
-    "description": "Converts recursive directory listing to an array or json object.",
-    "main": ".lib/walktree",
-    "version": "0.1.0",
-    "semantic-versioning": "2.0.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/amilcar-calles/walktree.git"
-    },
-    "author": "Amilcar Calles <amilcar@topdiez.com.mx>",
-    "license": "MIT",
-    "dependencies": {
-        "async": "0.9.0",
-        "junk": "1.0.0",
-        "fs-walk": "0.0.1"
-    },
-    "keywords": ["walk", "directory", "array", "json", "filter"]
+  "name": "walktree",
+  "description": "Converts recursive directory listing to an array or json object.",
+  "main": ".lib/walktree",
+  "version": "0.1.0",
+  "semantic-versioning": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amilcar-calles/walktree.git"
+  },
+  "author": "Amilcar Calles <amilcar@topdiez.com.mx>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "~0.9.x",
+    "junk": "~1.0.x",
+    "fs-walk": "~0.0.x",
+    "glob-to-regexp": "~0.0.x"
+  },
+  "keywords": [
+    "walk",
+    "directory",
+    "array",
+    "json",
+    "filter"
+  ],
+  "bugs": {
+    "url": "https://github.com/amilcar-calles/walktree/issues"
+  },
+  "engine": "node 0.10.31",
+  "homepage": "https://github.com/amilcar-calles/walktree",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
