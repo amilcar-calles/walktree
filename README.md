@@ -24,7 +24,7 @@ folder will be listed recursively.
 
 1. `directory` is the root directory for the file search.
 2. `filter` is the wildcard type or RegExp to filter the result (default: "*")
-3. `junk` when is true, will avoid junk files like ".thumbnails" or ".DS_Store" (default: true)
+3. `junk` when is false, will avoid junk files like ".thumbnails" or ".DS_Store", true will show everything (default: false)
 
 ```js
     var walktree = require('walktree');
@@ -33,7 +33,7 @@ folder will be listed recursively.
         {
             directory: './templates'
           , filter: '*.html'
-      //  , junk: false
+      //  , junk: true
         }
     );
     console.log(w)
