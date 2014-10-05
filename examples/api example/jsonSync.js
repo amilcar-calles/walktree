@@ -1,8 +1,8 @@
 var walktree = require('../../lib/index');
 
-var w = walktree.arraySync(
+var w = walktree.jsonSync(
     {
-        root: './',
+        root: '../../',
         junk: false,
         filter: '*',
         extended: false
