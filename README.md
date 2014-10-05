@@ -17,42 +17,140 @@ A easy to use module to convert recursive directory listing into an array or jso
 ## Functions
 
 ```js
-    walktree.array.sync(): Synchronously fetch all files in string array format
-        output: 
-            ['file1.txt', 'file2.txt', 'picture1.jpg']
+    // Synchronously fetch all files in string array format
+    // if no parameter is provided the default values are used.
+    walktree.array.sync()
+        //  output: 
+        //      ['anotherFolder', 'file1.txt', 'file2.txt', 'picture1.jpg']
         
     walktree.json.sync(): Synchronously fetch all files in string array format
-        output:
-            [
-                {
-                    parent: './',
-                    name: 'file1.txt'
-                    stats: [fsObject stats]
-                },
-                {
-                    parent: './',
-                    name: 'file2.txt'
-                    stats: [fsObject stats]
-                },
-                {
-                    parent: './',
-                    name: 'picture1.txt'
-                    stats: [fsObject stats]
-                },
-            ]
+        //  output:
+        //      [
+        //        {
+        //            parent: './',
+        //            name: 'anotherFolder'
+        //            stats: [fsObject stats],
+        //            isFile: false,
+        //            isDirectory: true
+        //        },
+        //      {
+        //            parent: './',
+        //            name: 'file1.txt'
+        //            stats: [fsObject stats],
+        //            isFile: true,
+        //            isDirectory: false
+        //        },
+        //        {
+        //            parent: './',
+        //            name: 'file2.txt'
+        //            stats: [fsObject stats],
+        //            isFile: true,
+        //            isDirectory: false
+        //        },
+        //        {
+        //            parent: './',
+        //            name: 'picture1.txt'
+        //            stats: [fsObject stats],
+        //            isFile: true,
+        //            isDirectory: false
+        //        }
+        //    ]
 ```
 
 ## Options
 
 ```js
-  walktree.array.sync([{[directory: string], [filter: string | RegExp], [junk: boolean]}])
+  walktree.arraySync([
+    {
+        ['root': root], // String = './'
+        ['junk': junk], // Boolean = false
+        ['junkRegexp']: // RegExp = RegExp in "junk" dependency module 
+        ['type': type], // String = 'filesAndFolders'
+        ['recursively': recursively], // Boolean = true
+        ['extended': extended], // Boolean = true
+        ['filter': filter],  // Stribg = '*'
+    }
+  ])
 ```
-A json options is not required, but when no parameter is passed, all files in the current
-folder will be listed recursively.
+####The json option is not required, in those cases "walkdir" will use the default configuration.
 
-1. `directory` is the root directory for the file search.
-2. `filter` is the wildcard type or RegExp to filter the result (default: "*")
-3. `junk` when is false, will avoid junk files like ".thumbnails" or ".DS_Store", true will show everything (default: false)
+1. `root` Is the root folder to start the walk. 
+
+    ```js
+        type: String
+        default value: './'
+        issue: in this version root can only point to current script execution directory './'
+               or one of his childrens (for example './node_modules',  './views/templates',
+               './scripts/bundle', etc.).
+        example: 
+            walktree = required('walktree')
+            var w = walktree.arraySync({'root': './templates'})
+            console.log(w)
+            // Retrieve all files in "templates" folder (relative to the path of the 
+            // caller script in your app) recursively as an array of string.
+    ```
+2. `junk` Should we fetch junk files too? (for example ".thumbnails", ".DS_Store", etc).
+
+    ```js
+        type: Boolean
+        default value: false
+        example: 
+            walktree.arraySync({
+                'root': './images', 
+                junk: true 
+            })
+            // Retrieve all files inside "images" folder without getting thumbs.db (junk files) in the array.
+    ```
+3. `junkRegexp` regExp field to customize the junk filter
+
+    ```js
+        type: RegExp
+        default value: /^npm-debug\.log$|^\..*\.swp$|^\.DS_Store|^\.AppleDouble$|^\.LSOverride$|^Icon[\r\?]?|^\._.*|^.Spotlight-V100$|\.Trashes|^__MACOSX$|~$|^Thumbs\.db$|^ehthumbs\.db$|^Desktop\.ini$/
+        example: 
+            walktree.arraySync({
+                'root': './', 
+                junkRegexp: /^.idea$|^.git$/
+            })
+    ```
+4. `type` (TODO: not yet implemented) Modality of the walk, retrieve files and folders, only files or only folders
+
+    ```js
+        type: String
+        default value: 'filesAndFolders'
+        possible values: 'files' | 'folders' | 'filesAndFolders'
+        example: 
+            walktree.arraySync({
+                'root': './', 
+                'type': 'files'
+            })
+            // Retrieve only files
+    ```
+5. `recursively` boolean: default = true; should we look inside every folder too?
+
+    ```js
+        type: Boolean
+        default value: true
+        example: 
+            walktree.arraySync({
+                'recursively': false
+            })
+            // Retrieve only files in the folder specified but in the sub folders. In this
+            // case because no folder is specified in the parameters, the folder that will 
+            // be used is './'
+    ```
+6. `extended` Should we retrieve detailed properties of each file? (like isFile and isFolder)
+
+    ```js
+        type: Boolean
+        default value: true
+        example: 
+            walktree.jsonSync({
+                'extended': false
+            })
+            // Set it to false if you want to return the json structure with only "parent", 
+            // "name" and "stat" fields.
+    ```
+7. `filter` RegExp | wildcard string default: '*'
 
 ```js
     var walktree = require('walktree');
@@ -64,8 +162,15 @@ folder will be listed recursively.
       //  , junk: true
         }
     );
-    console.log(w)
-    // will show only html files inside template folder
+    // will show only html files inside template folder. If you have more than one filter
+    // you can use curly braces to separate them of example: 
+    walktree.json.sync(
+        {
+            directory: './templates'
+          , filter: '{*.html}{*.js}{*.css}'
+        }
+    );
+    // This usage of filter will retrieve all html, javascript and cascade style files.
 ```
 
 ## License
