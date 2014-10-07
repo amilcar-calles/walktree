@@ -10,8 +10,8 @@ A easy to use module to convert recursive directory listing into an array or jso
 
 ```js
     var walktree = require('walktree');
-    console.log(walktree.array.sync())
-    // list of all files recursively (parent folder: current execution file)
+    console.log(walktree.arraySync())
+    // list of all files recursively (root folder: './')
 ```
 
 ## Functions
@@ -19,11 +19,11 @@ A easy to use module to convert recursive directory listing into an array or jso
 ```js
     // Synchronously fetch all files in string array format
     // if no parameter is provided the default values are used.
-    walktree.array.sync()
+    walktree.arraySync()
         //  output: 
         //      ['anotherFolder', 'file1.txt', 'file2.txt', 'picture1.jpg']
         
-    walktree.json.sync(): Synchronously fetch all files in string array format
+    walktree.jsonSync(): Synchronously fetch all files in string array format
         //  output:
         //      [
         //        {
@@ -64,7 +64,7 @@ A easy to use module to convert recursive directory listing into an array or jso
     {
         ['root': root], // String = './'
         ['junk': junk], // Boolean = false
-        ['junkRegexp']: // RegExp = RegExp in "junk" dependency module 
+        ['junkRegExp': junkRegExp], // RegExp = RegExp in "junk" dependency module 
         ['type': type], // String = 'filesAndFolders'
         ['recursively': recursively], // Boolean = true
         ['extended': extended], // Boolean = true
@@ -112,7 +112,7 @@ A easy to use module to convert recursive directory listing into an array or jso
                 junkRegexp: /^.idea$|^.git$/
             })
     ```
-4. `type` (TODO: not yet implemented) Modality of the walk, retrieve files and folders, only files or only folders
+4. `type` Modality of the walk, retrieve files and folders, only files or only folders
 
     ```js
         type: String
@@ -155,18 +155,18 @@ A easy to use module to convert recursive directory listing into an array or jso
 ```js
     var walktree = require('walktree');
     
-    var w = walktree.json.sync(
+    var w = walktree.jsonSync(
         {
-            directory: './templates'
+            root: './templates'
           , filter: '*.html'
       //  , junk: true
         }
     );
     // will show only html files inside template folder. If you have more than one filter
     // you can use curly braces to separate them of example: 
-    walktree.json.sync(
+    walktree.jsonSync(
         {
-            directory: './templates'
+            root: './templates'
           , filter: '{*.html}{*.js}{*.css}'
         }
     );
